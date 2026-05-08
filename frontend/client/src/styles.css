@@ -1,4 +1,5 @@
-@import "tailwindcss" source(none);
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
 @source "../src";
 @import "tw-animate-css";
 
@@ -71,9 +72,9 @@
   --card-foreground: oklch(0.18 0.04 270);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.18 0.04 270);
-  --primary: oklch(0.55 0.23 280);
+  --primary: oklch(65.504% 0.19644 24.321);
   --primary-foreground: oklch(0.99 0 0);
-  --primary-glow: oklch(0.7 0.22 310);
+  --primary-glow: oklch(82.708% 0.06839 336.52);
   --secondary: oklch(0.96 0.015 270);
   --secondary-foreground: oklch(0.25 0.05 270);
   --muted: oklch(0.96 0.012 270);
@@ -86,7 +87,12 @@
   --border: oklch(0.92 0.01 270);
   --input: oklch(0.94 0.012 270);
   --ring: oklch(0.55 0.23 280);
-  --gradient-hero: linear-gradient(135deg, oklch(0.55 0.23 280), oklch(0.7 0.22 310));
+  /* main color here */
+  --gradient-hero: linear-gradient(
+    135deg,
+    oklch(68.247% 0.16389 22.378),
+    oklch(68.247% 0.16389 22.378)
+  );
   --gradient-soft: linear-gradient(180deg, oklch(0.98 0.02 280), oklch(0.99 0.005 270));
   --gradient-card: linear-gradient(135deg, oklch(0.55 0.23 280 / 0.08), oklch(0.7 0.22 310 / 0.04));
   --shadow-soft: 0 1px 2px oklch(0.3 0.05 270 / 0.05), 0 4px 12px oklch(0.3 0.05 270 / 0.06);
@@ -149,7 +155,7 @@
   }
 
   body {
-    background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: "Ubuntu", sans-serif;
   }
 }

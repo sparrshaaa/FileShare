@@ -38,10 +38,7 @@ function Index() {
   return (
     <div>
       {/* Hero */}
-      <section
-        className="relative overflow-hidden"
-        style={{ background: "var(--gradient-soft)" }}
-      >
+      <section className="relative overflow-hidden" style={{ background: "var(--gradient-soft)" }}>
         <div
           aria-hidden
           className="pointer-events-none absolute -top-32 left-1/2 h-[480px] w-[820px] -translate-x-1/2 rounded-full opacity-30 blur-3xl"
@@ -62,7 +59,8 @@ function Index() {
             </span>
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-pretty text-lg text-muted-foreground">
-            Upload a file, get a unique PIN, share it. Your recipient enters the PIN to download — and the file is removed automatically. No signups, no clutter.
+            Upload a file, get a unique PIN, share it. Your recipient enters the PIN to download —
+            and the file is removed automatically. No signups, no clutter.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
