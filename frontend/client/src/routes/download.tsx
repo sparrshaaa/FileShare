@@ -61,7 +61,7 @@ function DownloadPage() {
       a.remove();
       URL.revokeObjectURL(url);
       toast.success("Download started", {
-        description: "The file will be removed from the server shortly.",
+        description: "The file will remain available for one hour after download.",
       });
       setDigits(["", "", "", "", ""]);
     } catch (err: any) {
@@ -70,7 +70,7 @@ function DownloadPage() {
         description:
           status === 404
             ? "No file found for that PIN. Double-check and try again."
-            : err?.message ?? "Try again later.",
+            : (err?.message ?? "Try again later."),
       });
     } finally {
       setBusy(false);
@@ -92,17 +92,13 @@ function DownloadPage() {
         >
           <KeyRound className="h-6 w-6" />
         </div>
-        <h1 className="text-center text-2xl font-bold tracking-tight">
-          Enter your share PIN
-        </h1>
+        <h1 className="text-center text-2xl font-bold tracking-tight">Enter your share PIN</h1>
         <p className="mt-2 text-center text-sm text-muted-foreground">
-          Type the 5-digit PIN to download the shared file.
+          Type the 5-digit PIN to download the shared file. It remains accessible for one hour after
+          download.
         </p>
 
-        <div
-          className="mt-7 flex justify-center gap-2 sm:gap-3"
-          onPaste={handlePaste as any}
-        >
+        <div className="mt-7 flex justify-center gap-2 sm:gap-3" onPaste={handlePaste as any}>
           {digits.map((d, i) => (
             <input
               key={i}
@@ -126,16 +122,12 @@ function DownloadPage() {
           className="mt-7 inline-flex h-12 w-full items-center justify-center gap-2 rounded-2xl text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.01] disabled:opacity-60 disabled:hover:scale-100"
           style={{ background: "var(--gradient-hero)", boxShadow: "var(--shadow-elegant)" }}
         >
-          {busy ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
-            <Download className="h-4 w-4" />
-          )}
+          {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
           {busy ? "Fetching…" : "Download file"}
         </button>
 
         <p className="mt-5 text-center text-xs text-muted-foreground">
-          The file is removed from the server shortly after a successful download.
+          The file remains available for one hour after a successful download.
         </p>
       </div>
     </section>

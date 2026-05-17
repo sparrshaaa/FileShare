@@ -36,11 +36,17 @@ export const ApiClient = {
   },
   // Returns a blob URL for the downloaded file
   download: async (pin: string): Promise<{ blob: Blob; filename: string }> => {
-    const res = await api.post(
-      "/download",
-      { pin },
-      { responseType: "blob" },
-    );
+    const res = await api.post("/download", { pin }, { responseType: "blob" });
+    const disposition = res.headers["content-disposition"] as string | undefined;
+    let filename = `secureshare-${pin}`;
+    if (disposition) {
+      const m = /filename\*?=(?:UTF-8'')?"?([^";]+)"?/i.exec(disposition);
+      if (m) filename = decodeURIComponent(m[1]);
+    }
+    return { blob: res.data as Blob, filename };
+  },
+  preview: async (pin: string): Promise<{ blob: Blob; filename: string }> => {
+    const res = await api.post("/preview", { pin }, { responseType: "blob" });
     const disposition = res.headers["content-disposition"] as string | undefined;
     let filename = `secureshare-${pin}`;
     if (disposition) {

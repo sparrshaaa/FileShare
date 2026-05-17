@@ -20,7 +20,7 @@ const features = [
   {
     icon: Trash2,
     title: "Auto-delete after download",
-    desc: "Files are removed shortly after the recipient downloads them.",
+    desc: "Files are removed automatically one hour after download.",
   },
   {
     icon: ShieldCheck,
@@ -58,9 +58,9 @@ function Index() {
               5-digit PIN
             </span>
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-pretty text-lg text-muted-foreground">
+          <p className="mx-auto mt-5 max-w-2xl text-pretty text-lg text-gray/60">
             Upload a file, get a unique PIN, share it. Your recipient enters the PIN to download —
-            and the file is removed automatically. No signups, no clutter.
+            and the file stays available for one hour. No signups, no clutter.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">

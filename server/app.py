@@ -30,7 +30,7 @@ DB_PATH = os.path.join(BASE_DIR, "database", "secureshare.db")
 ALLOWED_EXT = {"pdf", "png", "jpg", "jpeg", "docx", "txt"}
 BLOCKED_EXT = {"exe", "bat", "sh", "msi", "cmd", "scr"}
 MAX_BYTES = 50 * 1024 * 1024   # 50 MB
-DELETE_AFTER_DOWNLOAD_SECS = 5 # auto-delete shortly after download
+DELETE_AFTER_DOWNLOAD_SECS = 60 * 60  # auto-delete one hour after download
 
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
@@ -170,6 +170,25 @@ def download_by_pin():
     # Auto-delete shortly after the response is sent
     schedule_deletion(row["id"])
     return send_file(path, as_attachment=True, download_name=row["filename"])
+
+@app.post("/preview")
+def preview_by_pin():
+    data = request.get_json(silent=True) or {}
+    pin = str(data.get("pin", "")).strip()
+    if not pin.isdigit() or len(pin) != 5:
+        return jsonify({"error": "PIN must be 5 digits"}), 400
+
+    with db() as conn:
+        row = conn.execute("SELECT * FROM files WHERE pin = ?", (pin,)).fetchone()
+    if not row:
+        return jsonify({"error": "Invalid PIN"}), 404
+
+    path = os.path.join(UPLOAD_DIR, row["stored_name"])
+    if not os.path.exists(path):
+        delete_file_record(row["id"])
+        return jsonify({"error": "File no longer available"}), 410
+
+    return send_file(path, as_attachment=False, download_name=row["filename"])
 
 @app.delete("/delete/<int:file_id>")
 def delete_file(file_id: int):
